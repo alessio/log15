@@ -213,10 +213,14 @@ func formatLogfmtValue(value interface{}) string {
 		return strconv.FormatFloat(float64(v), floatFormat, 3, 64)
 	case float64:
 		return strconv.FormatFloat(v, floatFormat, 3, 64)
-	case int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64:
+	case int, int8, int16, int32, int64, uint, uint16, uint32, uint64:
 		return fmt.Sprintf("%d", value)
 	case string:
 		return escapeString(v)
+	case uint8:
+		return fmt.Sprintf("%X", value)
+	case []byte:
+		return fmt.Sprintf("%X", value)
 	default:
 		return escapeString(fmt.Sprintf("%+v", value))
 	}
