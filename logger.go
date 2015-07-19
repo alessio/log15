@@ -18,6 +18,7 @@ const (
 	LvlCrit Lvl = iota
 	LvlError
 	LvlWarn
+	LvlNotice
 	LvlInfo
 	LvlDebug
 )
@@ -29,6 +30,8 @@ func (l Lvl) String() string {
 		return "dbug"
 	case LvlInfo:
 		return "info"
+	case LvlNotice:
+		return "notice"
 	case LvlWarn:
 		return "warn"
 	case LvlError:
@@ -48,6 +51,8 @@ func LvlFromString(lvlString string) (Lvl, error) {
 		return LvlDebug, nil
 	case "info":
 		return LvlInfo, nil
+	case "notice":
+		return LvlNotice, nil
 	case "warn":
 		return LvlWarn, nil
 	case "error", "eror":
@@ -89,6 +94,7 @@ type Logger interface {
 	// Log a message at the given level with context key/value pairs
 	Debug(msg string, ctx ...interface{})
 	Info(msg string, ctx ...interface{})
+	Notice(msg string, ctx ...interface{})
 	Warn(msg string, ctx ...interface{})
 	Error(msg string, ctx ...interface{})
 	Crit(msg string, ctx ...interface{})
@@ -134,6 +140,10 @@ func (l *logger) Debug(msg string, ctx ...interface{}) {
 
 func (l *logger) Info(msg string, ctx ...interface{}) {
 	l.write(msg, LvlInfo, ctx)
+}
+
+func (l *logger) Notice(msg string, ctx ...interface{}) {
+	l.write(msg, LvlNotice, ctx)
 }
 
 func (l *logger) Warn(msg string, ctx ...interface{}) {
