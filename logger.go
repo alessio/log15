@@ -31,7 +31,7 @@ func (l Lvl) String() string {
 	case LvlInfo:
 		return "info"
 	case LvlNotice:
-		return "notice", "note"
+		return "note"
 	case LvlWarn:
 		return "warn"
 	case LvlError:
@@ -51,7 +51,7 @@ func LvlFromString(lvlString string) (Lvl, error) {
 		return LvlDebug, nil
 	case "info":
 		return LvlInfo, nil
-	case "notice":
+	case "note", "notice":
 		return LvlNotice, nil
 	case "warn":
 		return LvlWarn, nil
